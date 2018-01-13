@@ -1,5 +1,7 @@
 <?php
-if(isset($_SESSION['admin'])){
+
+if(hasnt_password() == 0){
+    //Renvoi 1 si le password exist
     header("Location:index.php?page=dashboard");
 }
 
@@ -13,20 +15,20 @@ if(isset($_SESSION['admin'])){
                     <img src="assets/img/modo.png" alt="Modérateur" width="100%"/>
                 </div>
             </div>
-            <h4 class="center-align">Se connecter</h4>
 
+            <h4 class="center-align">Choisir un mot de passe</h4>
             <?php
-
                 if(isset($_POST['submit'])){
-                    $email = htmlspecialchars(trim($_POST['email']));
-                    $token = htmlspecialchars(trim($_POST['token']));
+                    $password = htmlspecialchars(trim($_POST['password']));
+                    $password_again = htmlspecialchars(trim($_POST['password_again']));
 
                     $errors = [];
-
-                    if(empty($email) || empty($token)){
+                    if(empty($password) || empty($password_again)){
                         $errors['empty'] = "Tous les champs n'ont pas été remplis";
-                    }else if(is_modo($email,$token) == 0){
-                        $errors['exist'] = "Ce modérateur n'existe pas";
+                    }
+
+                    if($password != $password_again){
+                        $errors['different'] = "Les mots de passe sont différents";
                     }
 
                     if(!empty($errors)){
@@ -42,37 +44,34 @@ if(isset($_SESSION['admin'])){
                         </div>
                     <?php
                     }else{
-                        $_SESSION['admin'] = $email;
-                        header("Location:index.php?page=password");
+                        update_password($password);
+                        header("Location:index.php?page=dashboard");
                     }
-
                 }
-
 
             ?>
 
             <form method="post">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input type="email" id="email" name="email"/>
-                        <label for="email">Adresse email</label>
+                        <input type="password" id="password" name="password"/>
+                        <label for="password">Mot de passe</label>
                     </div>
+
                     <div class="input-field col s12">
-                        <input type="text" id="token" name="token"/>
-                        <label for="token">Code unique</label>
+                        <input type="password" name="password_again" id="password_again"/>
+                        <label for="password_again">Répéter le mot de passe</label>
                     </div>
-                    <center>
-                        <button type="submit" name="submit" class="btn waves-effect waves-light light-blue">
-                            <i class="material-icons left">perm_identity</i>
-                            Se connecter
-                        </button>
-                        <br/><br/>
-                        <a href="index.php?page=login">Déjà modérateur</a>
-                    </center>
                 </div>
+                <center>
+                    <button type="submit" name="submit" class="btn light-blue waves-effect waves-light">
+                        <i class="material-icons left">perm_identity</i>
+                        Se connecter
+                    </button>
+                </center>
 
             </form>
-        </div>
 
+        </div>
     </div>
 </div>

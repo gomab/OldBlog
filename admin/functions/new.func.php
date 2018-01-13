@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @param $email
+ * @param $token
+ * @return int
+ */
 function is_modo($email,$token){
     global $db;
 

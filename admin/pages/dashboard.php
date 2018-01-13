@@ -1,3 +1,11 @@
+<?php
+    if(hasnt_password() == 1){
+        //Renvoi 1 si le password exist
+        header("Location:index.php?page=dashboard");
+    }
+
+?>
+
 <h2>Tableau de bord</h2>
 <div class="row">
 
@@ -115,22 +123,11 @@
 
 
 
-
-
-
-
-
-
-
 <hr>
-
-
-
-
-
 
 <pre>
     <?php
     var_dump($_SESSION);
     ?>
+
 </pre>

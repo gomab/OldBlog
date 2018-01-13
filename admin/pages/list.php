@@ -1,3 +1,8 @@
+<?php
+    if(admin()!=1){
+        header("Location:index.php?page=dashboard");
+    }
+?>
 
 <h2>Listing des articles</h2>
 <hr>

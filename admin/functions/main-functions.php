@@ -20,4 +20,35 @@ try{
     die('Une erreur est survenue lors de la connexion à la base de données. Veuillez bien vouloir contacter le developpeur au : egomab@gmail.com');
 }
 
+function admin(){
+    if(isset($_SESSION['admin'])){
+        global $db;
+        $a = [
+            'email'     =>  $_SESSION['admin'],
+            'role'      =>  'admin'
+        ];
+
+        $sql = "SELECT * FROM admins WHERE email=:email AND role=:role";
+        $req = $db->prepare($sql);
+        $req->execute($a);
+        $exist = $req->rowCount($sql);
+
+        return $exist;
+    }else{
+        return 0;
+    }
+}
+
+/**
+ * Vérification mot de passe
+ */
+function hasnt_password(){
+    global $db;
+    $sql = "SELECT * FROM admins WHERE email= '{$_SESSION['admin']}' AND password = ''  ";
+    $req = $db->prepare($sql);
+    $req->execute();
+    $exist = $req->rowCount($sql);
+
+    return $exist;
+}
 

@@ -6,6 +6,11 @@
  * Time: 8:22 AM
  */
 
+    if(admin()!=1){
+        header("Location:index.php?page=dashboard");
+    }
+
+
 $post = get_post();
 
 //Condition pour vérifier si la variable post cest vide ou pas

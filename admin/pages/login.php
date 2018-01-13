@@ -1,5 +1,5 @@
 <?php
-    //Cas de figure de redirection vers la page dashbord si une session est deja active
+    //Cas de figure de redirection vers la page dashboard si une session est deja active
 
     if(isset($_SESSION['admin'])){
         header("Location:index.php?page=dashboard");
